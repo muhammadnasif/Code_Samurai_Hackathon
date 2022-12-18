@@ -7,4 +7,6 @@ import observer.views as observer_views
 urlpatterns = [
     path('api/projects/', observer_views.projects, name='projects'),
     path('project', observer_views.project, name='project'),
+    path('issue/<int:pk>/', observer_views.post_issue, name='post_issue')
 ]
+

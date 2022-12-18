@@ -30,3 +30,4 @@ def projects(request):
                 projects.append(data)
 
     return Response(projects)
+

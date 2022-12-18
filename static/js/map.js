@@ -4,9 +4,6 @@ window.addEventListener("load", async (event) => {
     const response = await fetch('/api/projects');
     data = await response.json();
     console.log(data)
-    for (const d in data) {
-        
-    }
 });
 
 var map = L.map('map').setView([51.505, -0.09], 13);

@@ -23,5 +23,5 @@ import observer.views as observer_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', observer_views.load),
-    path('api/', include('observer.urls')),
+    path('', include('observer.urls')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

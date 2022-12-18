@@ -5,5 +5,6 @@ from django.conf.urls.static import static
 import observer.views as observer_views
 
 urlpatterns = [
-    path('projects/', observer_views.projects, name='projects'),
+    path('api/projects/', observer_views.projects, name='projects'),
+    path('project', observer_views.project, name='project'),
 ]

@@ -6,7 +6,6 @@ import csv
 from django.conf import settings
 
 
-
 # Create your views here.
 
 def load(request):
@@ -15,9 +14,8 @@ def load(request):
 
 @api_view(['GET'])
 def projects(request):
-    
     projects = []
-    
+
     with open(settings.BASE_DIR / 'projects.csv', 'r') as file:
         reader = csv.reader(file)
         first = True
@@ -29,8 +27,13 @@ def projects(request):
                 data = {}
                 for i in range(len(attributes)):
                     data[attributes[i]] = row[i]
-            
+
                 projects.append(data)
 
     return Response(projects)
 
+
+def project(request):
+    if request.method == "POST":
+        print(request.POST)
+    return render(request, 'components/project.html')

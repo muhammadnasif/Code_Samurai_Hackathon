@@ -30,10 +30,15 @@ window.addEventListener("load", async(event) => {
                     document.getElementById('pop-up-description').innerText = data[i]['description'];
                     document.getElementById('pop-up-start-time').innerText = data[i]['project_start_time'];
                     document.getElementById('pop-up-completion-time').innerText = data[i]['project_completion_time'];
+                    document.getElementById('location-hidden').value = data[i].location_coordinates[j].id;
                     // document.getElementById('pop-up-coord').innerText =
 
                     $('#exampleModal').modal('show')
 
+                }).on('mouseover', function (e){
+                    this.openPopup();
+                }).on('mouseout', function (e) {
+                    this.closePopup();
                 })
 
             markerArray.push(markerElem);

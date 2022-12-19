@@ -10,19 +10,29 @@ from .models import *
 # Create your views here.
 
 
+# def load(request):
+#     if 'username' in request.session:
+#
+#         # Displaying distinct categories
+#         projects = Project.objects.values('category').distinct()
+#
+#         context = {
+#             "projects": projects,
+#         }
+#
+#         return render(request, 'base/base.html', context)
+#     else:
+#         return redirect(reverse('login'))
+
 def load(request):
-    if 'username' in request.session:
+    # Displaying distinct categories
+    projects = Project.objects.values('category').distinct()
 
-        # Displaying distinct categories
-        projects = Project.objects.values('category').distinct()
+    context = {
+        "projects": projects,
+    }
 
-        context = {
-            "projects": projects,
-        }
-
-        return render(request, 'base/base.html', context)
-    else:
-        return redirect(reverse('login'))
+    return render(request, 'base/base.html', context)
 
 
 @api_view(['GET'])

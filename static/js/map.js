@@ -23,9 +23,10 @@ window.addEventListener("load", async(event) => {
 
                     document.getElementById('pop-up-project-name').innerText = data[i]['project_name'];
                     document.getElementById('pop-up-category').innerText = data[i]['category'];
-                    // agencies = data[i]['affiliated_agency'].map(x => x.name);
-                    // console.log(agencies);
-                    // document.getElementById('pop-up-affiliated-agency').innerText = agencies.join(', ');
+                    agencies = data[i]['affiliated_agency']
+                    let agency_names = agencies.map(function(x){return x.name});
+                    console.log(agency_names)
+                    document.getElementById('pop-up-affiliated-agency').innerText = agency_names.join(', ');
                     document.getElementById('pop-up-description').innerText = data[i]['description'];
                     document.getElementById('pop-up-start-time').innerText = data[i]['project_start_time'];
                     document.getElementById('pop-up-completion-time').innerText = data[i]['project_completion_time'];

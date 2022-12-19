@@ -37,6 +37,7 @@ def fill_db(project_list):
             )
             l.save()
 
+
 def read_data():
     project_list = []
     with open(settings.BASE_DIR / 'projects.csv', 'r') as file:

@@ -14,7 +14,6 @@ window.addEventListener("load", async(event) => {
     // console.log(data.length);
 
     for (i = 0; i < data.length; i++) {
-        console.log(data[i].location_coordinates.length);
 
         for (j = 0; j < data[i].location_coordinates.length; j++) {
 
@@ -22,17 +21,24 @@ window.addEventListener("load", async(event) => {
             L.marker([data[i].location_coordinates[j].coord[0], data[i].location_coordinates[j].coord[1]])
                 .bindPopup(data[i].project_name)
                 .addTo(map)
-                .on('mouseover', onClick);
+                // .on('mouseover', pop_up_modal);
+                .addEventListener('click', async() => {
+                    console.log("success my boy");
 
-            setView_x += data[i].location_coordinates[j][0];
-            setView_y += data[i].location_coordinates[j][1];
+                    console.log(data[i]);
+
+                })
+            setView_x += data[i].location_coordinates[j].coord[0];
+            setView_y += data[i].location_coordinates[j].coord[1];
             total_coord++;
         }
     }
 
     setView_x = setView_x / total_coord;
     setView_y = setView_y / total_coord;
-
+    console.log(total_coord);
+    console.log(setView_x);
+    console.log(setView_y);
     console.log("setx -- " + setView_x);
     console.log("sety -- " + setView_y)
 
@@ -55,18 +61,26 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // L.marker([51.5, -0.09]).addTo(map)
 //     .on('mouseover', onClick);
 
-async function onClick(e) {
-    // const response = await fetch('/api/projects');
-    // var data = await response.json();
-    // console.log(data[0])
-    // var form = document.createElement('form');
-    // form.style.visibility = 'hidden'; // no user interaction is necessary
-    // form.method = 'POST'; // forms by default use GET query strings
-    // form.action = 'project';
-    // var input = document.createElement('input');
-    // input.name = "affiliated_agency";
-    // input.value = data[0].affiliated_agency;
-    // form.appendChild(input); // add key/value pair to form
-    // document.body.appendChild(form); // forms cannot be submitted outside of body
-    // form.submit(); // send the payload and navigate
+void function pop_up_modal(e) {
+    console.log("button presed")
+    console.log(e);
+
+
+    // document.getElementById('pop-up-project-name').innerText =
+    // document.getElementById('pop-up-category').innerText
+    // document.getElementById('pop-up-affiliated-agency').innerText
+    // document.getElementById('pop-up-description').innerText
+    // document.getElementById('pop-up-start-time').innerText
+    // document.getElementById('pop-up-completion-time').innerText
+    // document.getElementById('pop-up-coord').innerText
+
+
 }
+
+
+//leaflet-marker-icon leaflet-zoom-animated leaflet-interactive
+
+$('.leaflet-marker-icon').click(function () {
+
+    console.log("marker button pressed ... ")
+})

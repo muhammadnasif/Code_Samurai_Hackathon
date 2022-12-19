@@ -12,6 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <!-- <link href="css/styles.css" rel="stylesheet" /> -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
@@ -27,7 +28,7 @@
                         <li class="breadcrumb-item active">Location of the projects</li>
                     </ol>
 
-
+                    {% include 'components/modal.html' %}
                     {% include 'components/map.html' %} {# {% include 'cards.html' %}#} {# {% include 'charts.html' %}#} {# {% include 'datatable.html' %}#}
                 </div>
             </main>

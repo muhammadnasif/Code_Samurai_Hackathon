@@ -62,23 +62,6 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// const response = await fetch('/api/projects');
-// var data = await response.json();
-// console.log(data)
-
-// L.marker([51.5, -0.09]).addTo(map)
-//     .on('mouseover', onClick);
-
-
-void
-
-function clearMarkers() {
-    for (i = 0; i < markerArray.length; i++) {
-        map.removeLayer(markerArray[i]);
-    }
-}
-
-
 
 
 $('.marker-filter').click(async function () {

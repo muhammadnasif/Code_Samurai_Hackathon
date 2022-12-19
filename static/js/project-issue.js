@@ -3,7 +3,6 @@ $('.submit-issue').click(function (e) {
     e.preventDefault();
 
     console.log("issue submitted");
-    $('#exampleModal').modal('hide')
     let issue_msg = document.getElementById('form-issue').value;
     document.getElementById('form-issue').value = '';
     let coord = document.getElementById('location-hidden').value;

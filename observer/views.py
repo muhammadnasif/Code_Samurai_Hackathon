@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -8,8 +9,10 @@ from .models import *
 
 
 def load(request):
-    return render(request, 'base/base.html')
-
+    if 'username' in request.session:
+        return render(request, 'base/base.html')
+    else:
+        return redirect(reverse('login'))
 
 @api_view(['GET'])
 def projects(request):

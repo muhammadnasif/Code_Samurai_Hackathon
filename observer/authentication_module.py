@@ -6,22 +6,24 @@ from rest_framework.response import Response
 
 
 def log_in(request):
-    if request.method == "POST":
-        print("post method applied")
-        print(request.POST)
+    if 'username' in request.session:
+        return redirect(reverse('observer:home'))
+    else:
+        if request.method == "POST":
 
-        u_name = request.POST['username']
-        p_word = request.POST['password']
+            u_name = request.POST['username']
+            p_word = request.POST['password']
 
-        try:
-            user = User.objects.get(username=u_name)
-        except:
-            request.session.clear()
-            return redirect(reverse('login'))
-        if user.username == u_name and user.password == p_word:
-            create_session(request, u_name)
-            print('username matched')
-            return redirect(reverse('observer:home'))
+            try:
+                user = User.objects.get(username=u_name)
+            except:
+                request.session.clear()
+                return redirect(reverse('login'))
+
+            if user.username == u_name and user.password == p_word:
+                create_session(request, u_name)
+                print('username matched')
+                return redirect(reverse('observer:home'))
 
     return render(request, 'login.html')
 
@@ -38,5 +40,4 @@ def delete_session(request):
 
 def logout_request(request):
     delete_session(request)
-    print('session deleted')
     return redirect(log_in)

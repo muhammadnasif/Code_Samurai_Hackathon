@@ -3,29 +3,28 @@ var markerArray = [];
 var setView_x = 0,
     setView_y = 0;
 
+var category_set = new Set();
+
 
 window.addEventListener("load", async (event) => {
     const response = await fetch('/api/projects');
     data = await response.json();
-    // console.log(data)
 
     total_coord = 0;
     total_marker = 0;
-    // console.log(data.length);
 
     for (let i = 0; i < data.length; i++) {
 
         for (let j = 0; j < data[i].location_coordinates.length; j++) {
-
 
             var markerElem = L.marker([data[i].location_coordinates[j].coord[0], data[i].location_coordinates[j].coord[1]])
                 .bindPopup(data[i].project_name)
                 // .addTo(map)
                 // .on('mouseover', pop_up_modal);
                 .addEventListener('click', async () => {
-                    console.log("success my boy");
+                    console.log("success my boy 2");
 
-                    console.log(data[i]);
+
                 })
 
             markerArray.push(markerElem);
@@ -38,13 +37,10 @@ window.addEventListener("load", async (event) => {
         }
     }
 
+
     setView_x = setView_x / total_coord;
     setView_y = setView_y / total_coord;
-    console.log(total_coord);
-    console.log(setView_x);
-    console.log(setView_y);
-    console.log("setx -- " + setView_x);
-    console.log("sety -- " + setView_y)
+
 
 });
 
@@ -72,9 +68,6 @@ void function clearMarkers() {
     }
 }
 
-void function onlyPrint() {
-    console.log("printing -- ")
-}
 
 void function pop_up_modal(e) {
     console.log("button presed")
@@ -92,20 +85,35 @@ void function pop_up_modal(e) {
 
 }
 
-//
-$('.filter-btn-markers').click(async function () {
-    // Delete all the markers in the map
+
+
+$('.marker-filter').click(async function () {
+
+    let curr_cat = $(this).attr('id');
+
+    if(category_set.has(curr_cat)){
+
+       category_set.delete(curr_cat);
+    }
+    else{
+        category_set.add(curr_cat);
+    }
+
+    let fetch_url = "/api/projects/filter?"
+
+    category_set.forEach(itr_category => {
+        fetch_url = fetch_url + "category=" + itr_category + "&"
+    })
+
+
     for (i = 0; i < markerArray.length; i++) {
         map.removeLayer(markerArray[i]);
     }
-    console.log("previous markers removed");
-    const response = await fetch('/api/projects/filter?category=Governance');
+    const response = await fetch(fetch_url);
     data = await response.json();
-    // console.log(data)
 
     total_coord = 0;
     total_marker = 0;
-    // console.log(data.length);
 
     for (i = 0; i < data.length; i++) {
 
@@ -130,5 +138,6 @@ $('.filter-btn-markers').click(async function () {
             total_coord++;
         }
     }
-})
 
+
+})

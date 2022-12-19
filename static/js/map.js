@@ -34,6 +34,10 @@ window.addEventListener("load", async(event) => {
 
                     $('#exampleModal').modal('show')
 
+                }).on('mouseover', function (e){
+                    this.openPopup();
+                }).on('mouseout', function (e) {
+                    this.closePopup();
                 })
 
             markerArray.push(markerElem);

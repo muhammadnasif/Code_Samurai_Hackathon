@@ -19,8 +19,10 @@ window.addEventListener("load", async(event) => {
         for (j = 0; j < data[i].location_coordinates.length; j++) {
             // console.log();
             // console.log(i + " " + data[i].location_coordinates[j]);
-
-            L.marker([data[i].location_coordinates[j][0], data[i].location_coordinates[j][1]]).addTo(map)
+            // project_name
+            L.marker([data[i].location_coordinates[j][0], data[i].location_coordinates[j][1]])
+                .bindPopup(data[i].project_name)
+                .addTo(map)
                 .on('mouseover', onClick);
 
             setView_x += data[i].location_coordinates[j][0];
@@ -34,9 +36,17 @@ window.addEventListener("load", async(event) => {
 
     setView_x = setView_x / total_coord;
     setView_y = setView_y / total_coord;
+
+    console.log("setx -- " + setView_x);
+    console.log("sety -- " + setView_y)
+
 });
 
-var map = L.map('map').setView([23.72791662761905, 90.40686054500544], 13);
+// var map = L.map('map').setView([23.72791662761905, 90.40686054500544], 13);
+
+
+var map = L.map('map').setView([23.7461081171818, 90.40092292250247], 13);
+
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

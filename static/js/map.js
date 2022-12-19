@@ -17,10 +17,9 @@ window.addEventListener("load", async(event) => {
         console.log(data[i].location_coordinates.length);
 
         for (j = 0; j < data[i].location_coordinates.length; j++) {
-            // console.log();
-            // console.log(i + " " + data[i].location_coordinates[j]);
-            // project_name
-            L.marker([data[i].location_coordinates[j][0], data[i].location_coordinates[j][1]])
+
+
+            L.marker([data[i].location_coordinates[j].coord[0], data[i].location_coordinates[j].coord[1]])
                 .bindPopup(data[i].project_name)
                 .addTo(map)
                 .on('mouseover', onClick);
@@ -29,9 +28,6 @@ window.addEventListener("load", async(event) => {
             setView_y += data[i].location_coordinates[j][1];
             total_coord++;
         }
-
-        // console.log(data[i].location_coordinates);
-        // console.log(data[i].location_coordinates.length);
     }
 
     setView_x = setView_x / total_coord;

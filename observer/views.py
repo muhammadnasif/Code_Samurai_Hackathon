@@ -60,7 +60,7 @@ def project(request):
 
 
 @api_view(['POST'])
-def post_issue(request, pk):
+def post_issue(request):
     print(request.POST)
     return Response({'result': 'ok'})
 

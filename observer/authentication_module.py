@@ -20,9 +20,8 @@ def log_in(request):
                 request.session.clear()
                 return redirect(reverse('login'))
 
-            if user.username == u_name and user.password == p_word:
+            if user.username == u_name and user.password == p_word and user.admin == True:
                 create_session(request, u_name)
-                print('username matched')
                 return redirect(reverse('observer:home'))
 
     return render(request, 'login.html')

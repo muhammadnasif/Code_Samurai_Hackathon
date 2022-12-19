@@ -1,33 +1,37 @@
 var data;
-
+var markerArray = [];
 var setView_x = 0,
     setView_y = 0;
 
 
-window.addEventListener("load", async(event) => {
+window.addEventListener("load", async (event) => {
     const response = await fetch('/api/projects');
     data = await response.json();
     // console.log(data)
 
     total_coord = 0;
-
+    total_marker = 0;
     // console.log(data.length);
 
-    for (i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
 
-        for (j = 0; j < data[i].location_coordinates.length; j++) {
+        for (let j = 0; j < data[i].location_coordinates.length; j++) {
 
 
-            L.marker([data[i].location_coordinates[j].coord[0], data[i].location_coordinates[j].coord[1]])
+            var markerElem = L.marker([data[i].location_coordinates[j].coord[0], data[i].location_coordinates[j].coord[1]])
                 .bindPopup(data[i].project_name)
-                .addTo(map)
+                // .addTo(map)
                 // .on('mouseover', pop_up_modal);
-                .addEventListener('click', async() => {
+                .addEventListener('click', async () => {
                     console.log("success my boy");
 
                     console.log(data[i]);
-
                 })
+
+            markerArray.push(markerElem);
+            map.addLayer(markerArray[total_marker]);
+            total_marker++;
+
             setView_x += data[i].location_coordinates[j].coord[0];
             setView_y += data[i].location_coordinates[j].coord[1];
             total_coord++;
@@ -61,6 +65,17 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 // L.marker([51.5, -0.09]).addTo(map)
 //     .on('mouseover', onClick);
 
+
+void function clearMarkers() {
+    for (i = 0; i < markerArray.length; i++) {
+        map.removeLayer(markerArray[i]);
+    }
+}
+
+void function onlyPrint() {
+    console.log("printing -- ")
+}
+
 void function pop_up_modal(e) {
     console.log("button presed")
     console.log(e);
@@ -77,10 +92,43 @@ void function pop_up_modal(e) {
 
 }
 
+//
+$('.filter-btn-markers').click(async function () {
+    // Delete all the markers in the map
+    for (i = 0; i < markerArray.length; i++) {
+        map.removeLayer(markerArray[i]);
+    }
+    console.log("previous markers removed");
+    const response = await fetch('/api/projects/filter?category=Governance');
+    data = await response.json();
+    // console.log(data)
 
-//leaflet-marker-icon leaflet-zoom-animated leaflet-interactive
+    total_coord = 0;
+    total_marker = 0;
+    // console.log(data.length);
 
-$('.leaflet-marker-icon').click(function () {
+    for (i = 0; i < data.length; i++) {
 
-    console.log("marker button pressed ... ")
+        for (j = 0; j < data[i].location_coordinates.length; j++) {
+
+
+            var markerElem = L.marker([data[i].location_coordinates[j].coord[0], data[i].location_coordinates[j].coord[1]])
+                .bindPopup(data[i].project_name)
+                // .addTo(map)
+                // .on('mouseover', pop_up_modal);
+                .addEventListener('click', async () => {
+                    console.log("success my boy");
+
+                })
+
+            markerArray.push(markerElem);
+            map.addLayer(markerArray[total_marker]);
+            total_marker++;
+
+            setView_x += data[i].location_coordinates[j].coord[0];
+            setView_y += data[i].location_coordinates[j].coord[1];
+            total_coord++;
+        }
+    }
 })
+

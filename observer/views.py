@@ -61,11 +61,20 @@ def project(request):
 
 @api_view(['POST'])
 def post_issue(request):
-    print(request.POST)
+    id = request.POST['coord']
+    location = Location.objects.get(id=id)
+
+    # print(request.POST['coord'])
+    # latlong = request.POST['coord'].split(',')
+    # location = Location.objects.get(longitude=latlong[0], latitude=latlong[1])
+    # print(location)
+    issue = Issue.objects.create(location=location, description=request.POST['issue_msg'])
+    issue.save()
     return Response({'result': 'ok'})
 
 
 def project_convert(project):
+
     return {
         'project_name': project.name,
         'category': project.category,

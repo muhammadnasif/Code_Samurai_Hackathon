@@ -4,7 +4,7 @@ var setView_x = 0,
     setView_y = 0;
 
 
-window.addEventListener("load", async (event) => {
+window.addEventListener("load", async(event) => {
     const response = await fetch('/api/projects');
     data = await response.json();
     // console.log(data)
@@ -20,12 +20,20 @@ window.addEventListener("load", async (event) => {
 
             var markerElem = L.marker([data[i].location_coordinates[j].coord[0], data[i].location_coordinates[j].coord[1]])
                 .bindPopup(data[i].project_name)
-                // .addTo(map)
-                // .on('mouseover', pop_up_modal);
-                .addEventListener('click', async () => {
-                    console.log("success my boy");
+                .addEventListener('click', async() => {
 
-                    console.log(data[i]);
+                    document.getElementById('pop-up-project-name').innerText = data[i]['project_name'];
+                    document.getElementById('pop-up-category').innerText = data[i]['category'];
+                    // agencies = data[i]['affiliated_agency'].map(x => x.name);
+                    // console.log(agencies);
+                    // document.getElementById('pop-up-affiliated-agency').innerText = agencies.join(', ');
+                    document.getElementById('pop-up-description').innerText = data[i]['description'];
+                    document.getElementById('pop-up-start-time').innerText = data[i]['project_start_time'];
+                    document.getElementById('pop-up-completion-time').innerText = data[i]['project_completion_time'];
+                    // document.getElementById('pop-up-coord').innerText =
+
+                    $('#exampleModal').modal('show')
+
                 })
 
             markerArray.push(markerElem);
@@ -66,34 +74,22 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //     .on('mouseover', onClick);
 
 
-void function clearMarkers() {
+void
+
+function clearMarkers() {
     for (i = 0; i < markerArray.length; i++) {
         map.removeLayer(markerArray[i]);
     }
 }
 
-void function onlyPrint() {
+void
+
+function onlyPrint() {
     console.log("printing -- ")
 }
 
-void function pop_up_modal(e) {
-    console.log("button presed")
-    console.log(e);
 
-
-    // document.getElementById('pop-up-project-name').innerText =
-    // document.getElementById('pop-up-category').innerText
-    // document.getElementById('pop-up-affiliated-agency').innerText
-    // document.getElementById('pop-up-description').innerText
-    // document.getElementById('pop-up-start-time').innerText
-    // document.getElementById('pop-up-completion-time').innerText
-    // document.getElementById('pop-up-coord').innerText
-
-
-}
-
-//
-$('.filter-btn-markers').click(async function () {
+$('.filter-btn-markers').click(async function() {
     // Delete all the markers in the map
     for (i = 0; i < markerArray.length; i++) {
         map.removeLayer(markerArray[i]);
@@ -116,7 +112,7 @@ $('.filter-btn-markers').click(async function () {
                 .bindPopup(data[i].project_name)
                 // .addTo(map)
                 // .on('mouseover', pop_up_modal);
-                .addEventListener('click', async () => {
+                .addEventListener('click', async() => {
                     console.log("success my boy");
 
                 })
@@ -131,4 +127,3 @@ $('.filter-btn-markers').click(async function () {
         }
     }
 })
-

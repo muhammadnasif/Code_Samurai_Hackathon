@@ -70,10 +70,10 @@ def project_convert(project):
         'project_name': project.name,
         'category': project.category,
         'affiliated_agency': [
-            [{
+            {
                 'name': a.name,
                 'id': a.id,
-            } for a in project.affiliated_agencies.all()]
+            } for a in project.affiliated_agencies.all()
         ],
         'description': project.description,
         'project_start_time': project.start_time,
